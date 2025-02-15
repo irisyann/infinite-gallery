@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Infinite Horizontal Gallery</title>
+        <link rel="stylesheet" href="output.css">
+    </head>
+
+    <body>
+        <div class="w-xs mx-auto mb-10">
+            <input 
+                id="user-images-input"
+                type="file" 
+                class="file-input file-input-bordered file-input-primary w-full max-w-xs mb-3" 
+                multiple
+                accept="image/*"
+            />
+            
+            <div class="mb-3">
+                <input id="user-rows-input" type="range" min="1" max="5" value="3" step="1" class="range range-primary"/>
+                <div class="flex w-full justify-between px-2 text-xs">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                </div>
+            </div>
+
+            <div class="form-control mb-3">
+                <label class="label cursor-pointer">
+                  <span class="label-text text-sm">Reverse direction</span>
+                  <input id="user-reverse-select" type="checkbox" class="toggle toggle-primary" />
+                </label>
+            </div>
+
+            <div class="form-control mb-10">
+                <label class="label cursor-pointer">
+                  <span class="label-text text-sm">Slow down</span>
+                  <input id="user-slowdown-select" type="checkbox" class="toggle toggle-primary" />
+                </label>
+            </div>
+
+            <button id="user-submit" class="btn btn-primary w-full">Create gallery</button>
+        </div>
+
+        <div id="gallery"></div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
