@@ -7,10 +7,19 @@ const userImagesInput = document.getElementById("user-images-input");
 const userRowsInput = document.getElementById("user-rows-input");
 const userReverseSelect = document.getElementById("user-reverse-select");
 const userSlowdownSelect = document.getElementById("user-slowdown-select");
+const errorAlert = document.getElementById("error-alert");
 
 // on submit button click, get images from file input and store in images array
 userSubmitButton.addEventListener("click", function () {
   const files = userImagesInput.files;
+  if (!files.length) {
+    errorAlert.classList.remove("hidden");
+    setTimeout(() => {
+      errorAlert.classList.add("hidden");
+    }, 3000);
+    return;
+  }
+
   let userImages = [];
   let promises = [];
 
