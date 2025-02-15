@@ -1066,8 +1066,17 @@
       }
     }
   }
+  .mb-1 {
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
   .mb-3 {
     margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
   }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
@@ -1182,6 +1191,9 @@
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
+  .pt-1 {
+    padding-top: calc(var(--spacing) * 1);
+  }
   .text-sm {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
@@ -1207,9 +1219,44 @@
     --btn-color: var(--color-primary);
     --btn-fg: var(--color-primary-content);
   }
+  .range-md {
+    --range-thumb-size: calc(var(--size-selector, 0.25rem) * 6);
+  }
+  .range-sm {
+    --range-thumb-size: calc(var(--size-selector, 0.25rem) * 5);
+  }
+  .range-xs {
+    --range-thumb-size: calc(var(--size-selector, 0.25rem) * 4);
+  }
   .toggle-primary {
     &:checked, &[aria-checked="true"] {
       --input-color: var(--color-primary);
+    }
+  }
+  .md\:w-md {
+    @media (width >= 48rem) {
+      width: var(--container-md);
+    }
+  }
+  .md\:max-w-md {
+    @media (width >= 48rem) {
+      max-width: var(--container-md);
+    }
+  }
+  .md\:range-md {
+    @media (width >= 48rem) {
+      --range-thumb-size: calc(var(--size-selector, 0.25rem) * 6);
+    }
+  }
+  .lg\:text-lg {
+    @media (width >= 64rem) {
+      font-size: var(--text-lg);
+      line-height: var(--tw-leading, var(--text-lg--line-height));
+    }
+  }
+  .lg\:range-lg {
+    @media (width >= 64rem) {
+      --range-thumb-size: calc(var(--size-selector, 0.25rem) * 7);
     }
   }
 }

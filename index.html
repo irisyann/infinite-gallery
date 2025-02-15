@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <div class="w-xs mx-auto mb-10">
+        <div class="w-xs md:w-md mx-auto mb-10">
             <div id="error-alert" role="alert" class="alert alert-error hidden mb-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -27,14 +27,14 @@
             <input 
                 id="user-images-input"
                 type="file" 
-                class="file-input file-input-bordered file-input-primary w-full max-w-xs mb-3" 
+                class="file-input file-input-bordered file-input-primary w-full max-w-xs md:max-w-md mb-4" 
                 multiple
                 accept="image/*"
             />
             
-            <div class="mb-3">
-                <input id="user-rows-input" type="range" min="1" max="5" value="3" step="1" class="range range-primary"/>
-                <div class="flex w-full justify-between px-2 text-xs">
+            <div class="mb-4">
+                <input id="user-rows-input" type="range" min="1" max="5" value="3" step="1" class="range range-md lg:range-lg range-primary w-full"/>
+                <div class="flex w-full justify-between px-2 pt-1 text-xs md:text-md">
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="form-control mb-3">
+            <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                   <span class="label-text text-sm">Reverse direction</span>
                   <input id="user-reverse-select" type="checkbox" class="toggle toggle-primary" />
