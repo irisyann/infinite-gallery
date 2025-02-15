@@ -8,17 +8,15 @@ const userRowsInput = document.getElementById("user-rows-input");
 const userReverseSelect = document.getElementById("user-reverse-select");
 const userSlowdownSelect = document.getElementById("user-slowdown-select");
 const errorAlert = document.getElementById("error-alert");
+const errorAlertMessage = document.getElementById("error-alert-message");
 
 // on submit button click, get images from file input and store in images array
 userSubmitButton.addEventListener("click", function () {
   const files = userImagesInput.files;
   if (!files.length) {
-    errorAlert.classList.remove("hidden");
-    setTimeout(() => {
-      errorAlert.classList.add("hidden");
-    }, 3000);
+    setErrorAlert("Please upload at least 1 image.");
     return;
-  }
+  }  
 
   let userImages = [];
   let promises = [];
@@ -26,6 +24,11 @@ userSubmitButton.addEventListener("click", function () {
   for (let i = 0; i < files.length; i++) {
     let filePromise = new Promise((resolve, reject) => {
       const file = files[i];
+
+      if (!file.type.startsWith("image/")) {
+        setErrorAlert("Please upload only image files.");
+        return;
+      }
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -73,6 +76,16 @@ userSlowdownSelect.addEventListener("change", function () {
 userRowsInput.addEventListener("change", function () {
   numRows = userRowsInput.value;
 });
+
+function setErrorAlert(message) {
+  errorAlert.classList.remove("hidden");
+  errorAlertMessage.textContent = message;
+
+  setTimeout(() => {
+    errorAlert.classList.add("hidden");
+    errorAlertMessage.textContent = "";
+  }, 3000);
+}
 
 function createGallery(userImages) {
   const gallery = document.getElementById("gallery");
