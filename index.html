@@ -13,7 +13,7 @@
             <p class="text-sm md:text-md lg:text-lg mt-2">Create a horizontal gallery with infinite scrolling</p>
         </div>
 
-        <div id="error-alert" role="alert" class="alert alert-error hidden mb-5">
+        <div id="error-alert" role="alert" class="alert alert-error hidden mb-5 w-xs md:w-md mx-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6 shrink-0 stroke-current"
@@ -62,29 +62,83 @@
 
         <div id="user-preference" class="hidden w-xs md:w-md mx-auto mb-10">
             <div class="form-control">
-                <label class="label cursor-pointer">
-                  <span class="label-text text-sm">Rounded</span>
+                <label class="label cursor-pointer mb-2">
+                  <span class="label-text text-sm">Round shapes</span>
                   <input id="user-rounded-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
     
             <div class="form-control">
-                <label class="label cursor-pointer">
+                <label class="label cursor-pointer mb-2">
                   <span class="label-text text-sm">Reverse direction</span>
                   <input id="user-reverse-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
     
             <div class="form-control">
-                <label class="label cursor-pointer">
+                <label class="label cursor-pointer mb-2">
                   <span class="label-text text-sm">Slow down</span>
                   <input id="user-slowdown-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
         </div>
 
-        <div id="gallery"></div>
+        <div class="grid">
+            <div id="gallery" class="mx-auto"></div>
+        </div>
 
-        <script src="script.js"></script>
+        <div id="gallery-code-section" class="hidden w-full mx-auto mt-10">
+            <div class="text-center mb-5">
+                <h2 class="text-lg md
+                :text-xl lg:text-2xl font-bold">Grab the code below</h2>
+
+                <p class="text-xs md
+                :text-sm lg:text-md">Paste the code to use this gallery in your project!</p>
+            </div>
+
+            <div class="gap-5 w-xs lg:w-full mx-auto">
+                <div class="w-full max-w-md lg:max-w-lg mx-auto mb-5">
+                    <label class="label mb-2">
+                        <span class="label-text text-sm">HTML</span>
+                        <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-html')">Copy</button>
+                    </label>
+                    <div class="mockup-code h-60 overflow-y-auto">
+                        <pre><code id="gallery-code-html"></code></pre>
+                    </div>
+                </div>
+    
+                <div class="w-full max-w-md lg:max-w-lg mx-auto mb-5">
+                    <label class="label mb-2">
+                        <span class="label-text text-sm">CSS</span>
+                        <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-css')">Copy</button>
+                    </label>
+                    <div class="mockup-code h-60 overflow-y-auto">
+                        <pre><code id="gallery-code-css"></code></pre>
+                    </div>
+                </div>
+    
+                <div class="w-full max-w-md lg:max-w-lg mx-auto">
+                    <label class="label mb-2">
+                        <span class="label-text text-sm">JavaScript</span>
+                        <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-js')">Copy</button>
+                    </label>
+                    <div class="mockup-code h-60 overflow-y-auto">
+                        <pre><code id="gallery-code-js"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function copyToClipboard(elementId) {
+                const element = document.getElementById(elementId);
+                const text = element.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Copied to clipboard!");
+                });
+            }
+        </script>
+
+        <script src="script.js" type="module"></script>
     </body>
 </html>

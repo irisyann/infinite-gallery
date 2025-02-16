@@ -1,28 +1,52 @@
+import { setErrorAlert, resetForm, clearExistingGallery } from "./util.js";
+import { prepareGalleryCode } from "./code-blocks.js";
+
+/* START Gallery elements */
 let scrollers = null;
 let scrollerInners = null;
-let imageElements = null;
 let numRows = 1;
-let numImages = 0;
-const createGalleryInput = document.getElementById("create-gallery-input");
-const userPreference = document.getElementById("user-preference");
-const userSubmitButton = document.getElementById("user-submit");
-const userImagesInput = document.getElementById("user-images-input");
 const userRowsInput = document.getElementById("user-rows-input");
 const userRoundedSelect = document.getElementById("user-rounded-select");
 const userReverseSelect = document.getElementById("user-reverse-select");
 const userSlowdownSelect = document.getElementById("user-slowdown-select");
+const gallery = document.getElementById("gallery");
+/* END Gallery elements */
+
+let imageElements = null;
+let galleryCreated = false;
+const createGalleryInput = document.getElementById("create-gallery-input");
+const userPreference = document.getElementById("user-preference");
+const userSubmitButton = document.getElementById("user-submit");
+const userImagesInput = document.getElementById("user-images-input");
 const errorAlert = document.getElementById("error-alert");
 const errorAlertMessage = document.getElementById("error-alert-message");
+const galleryCodeSection = document.getElementById("gallery-code-section");
 
-// on submit button click, get images from file input and store in images array
+/*Internal*/const createGalleryFunction = createGallery.toString();/*Internal*/
+/*Internal*/const divideArrayEquallyFunction = divideArrayEqually.toString();/*Internal*/
+/*Internal*/const addAnimationFunction = addAnimation.toString();/*Internal*/
+
+// On submit button click, get user's uploaded images from file input and store them in images array
 userSubmitButton.addEventListener("click", function () {
+  handleImageUpload();
+
+  resetForm(
+    { galleryCreated, createGalleryInput, userImagesInput, userRowsInput, userSubmitButton, userPreference, galleryCodeSection }
+  );
+});
+
+function handleImageUpload() {
   const files = userImagesInput.files;
-  if (!files.length) {
-    setErrorAlert("Please upload at least 1 image.");
+  if (!galleryCreated && !files.length) {
+    setErrorAlert({
+      message: "Please upload at least 1 image.",
+      errorAlert,
+      errorAlertMessage
+    });
     return;
   }  
 
-  toggleFormInputs();
+  galleryCreated = !galleryCreated;
 
   let userImages = [];
   let promises = [];
@@ -32,11 +56,15 @@ userSubmitButton.addEventListener("click", function () {
       const file = files[i];
 
       if (!file.type.startsWith("image/")) {
-        setErrorAlert("Please upload only image files.");
+        setErrorAlert({
+          message: "Please upload only images.",
+          errorAlert,
+          errorAlertMessage
+        });
         return;
       }
-      const reader = new FileReader();
 
+      const reader = new FileReader();
       reader.onload = function (e) {
         userImages.push(e.target.result);
         resolve();
@@ -51,13 +79,7 @@ userSubmitButton.addEventListener("click", function () {
   Promise.all(promises).then(() => {
     createGallery(userImages);
   });
-
-  numRows = userRowsInput.value;
-  numImages = userImages.length;
-
-  userImagesInput.value = "";
-  userRowsInput.value = 3;
-});
+}
 
 userRoundedSelect.addEventListener("change", function () {
   if (!imageElements) {
@@ -67,6 +89,8 @@ userRoundedSelect.addEventListener("change", function () {
   imageElements.forEach((image) => {
     roundedCorners(image)
   });
+
+  updateCodeBlocks();
 });
 
 userReverseSelect.addEventListener("change", function () {
@@ -77,6 +101,8 @@ userReverseSelect.addEventListener("change", function () {
   scrollers.forEach((scroller) => {
     reverseAnimationDirection(scroller);
   });
+
+  updateCodeBlocks();
 });
 
 userSlowdownSelect.addEventListener("change", function () {
@@ -87,48 +113,32 @@ userSlowdownSelect.addEventListener("change", function () {
   scrollers.forEach((scroller) => {
     changeAnimationSpeed(scroller);
   });
+
+  updateCodeBlocks();
 });
 
-userRowsInput.addEventListener("change", function () {
-  numRows = userRowsInput.value;
-});
-
-function setErrorAlert(message) {
-  errorAlert.classList.remove("hidden");
-  errorAlertMessage.textContent = message;
-
-  setTimeout(() => {
-    errorAlert.classList.add("hidden");
-    errorAlertMessage.textContent = "";
-  }, 3000);
+function updateCodeBlocks() {
+  prepareGalleryCode({
+    userRoundedSelect,
+    userReverseSelect,
+    userSlowdownSelect,
+    createGalleryFunction,
+    divideArrayEquallyFunction,
+    addAnimationFunction,
+    galleryCodeSection
+  });
 }
 
-function toggleFormInputs() {
-  if (createGalleryInput.classList.contains("hidden")) {
-    createGalleryInput.classList.remove("hidden");
-    userSubmitButton.textContent = "Create gallery";
-    userPreference.classList.remove("flex");
-    userPreference.classList.remove("justify-between");
-    userPreference.classList.add("hidden");
-  } else {
-    createGalleryInput.classList.add("hidden");
-    userSubmitButton.textContent = "Create another gallery";
-    userPreference.classList.remove("hidden");
-    userPreference.classList.add("flex");
-    userPreference.classList.add("justify-between");
-  }
-}
-
+/* START Gallery code */
 function createGallery(userImages) {
-  clearExistingGallery();
-  
-  const gallery = document.getElementById("gallery");
+  /*Internal*/clearExistingGallery(gallery);/*Internal*/
+  numRows = userRowsInput.value;
+
   for (let i = 0; i < numRows; i++) {
     const scroller = document.createElement("div");
     scroller.classList.add("scroller");
-    changeAnimationSpeed(scroller);
-    reverseAnimationDirection(scroller);
-    scroller.setAttribute("data-length", numImages);
+    /*Internal*/changeAnimationSpeed(scroller);/*Internal*/
+    /*Internal*/reverseAnimationDirection(scroller);/*Internal*/
 
     const scrollerInner = document.createElement("div");
     scrollerInner.classList.add("scroller__inner");
@@ -155,40 +165,11 @@ function createGallery(userImages) {
       const img = document.createElement("img");
       img.src = image;
       scrollerInner.appendChild(img);
-      roundedCorners(img);
+      /*Internal*/roundedCorners(img);/*Internal*/
     });
   });
 
   addAnimation();
-}
-
-function roundedCorners(image) {
-  if (userRoundedSelect.checked) {
-    image.setAttribute("data-rounded", "true");
-  } else {
-    image.setAttribute("data-rounded", "false");
-  }
-}
-
-function reverseAnimationDirection(scroller) {
-  if (userReverseSelect.checked) {
-    scroller.setAttribute("data-direction", "left");
-  } else {
-    scroller.setAttribute("data-direction", "right");
-  }
-}
-
-function changeAnimationSpeed(scroller) {
-  if (userSlowdownSelect.checked) {
-    scroller.setAttribute("data-speed", "slow");
-  } else {
-    scroller.setAttribute("data-speed", "fast");
-  }
-}
-
-function checkUserPreferences(scroller) {
-  reverseAnimationDirection(scroller);
-  changeAnimationSpeed(scroller);
 }
 
 function divideArrayEqually(arr, numRows) {
@@ -223,8 +204,10 @@ function divideArrayEqually(arr, numRows) {
       let end = start + partSize;
       let part = arr.slice(start, end);
   
+      let j = 0;
       while (part.length < partSize) {
-        part.push(arr[0]); // Duplicate the first element if needed
+        part.push(arr[j]); // Duplicate the element from the start to fill the gaps
+        j++;
       }
   
       parts.push(part);
@@ -236,27 +219,52 @@ function divideArrayEqually(arr, numRows) {
 
 function addAnimation() {
   scrollers.forEach((scroller) => {
-    checkUserPreferences(scroller);
+    /*Internal*/checkUserPreferences(scroller);/*Internal*/
 
     scrollerInners.forEach((scrollerInner) => {
       const scrollerContent = Array.from(scrollerInner.children);
-      // For each item in the array, clone it
-      // add aria-hidden to it
-      // add it into the `.scroller-inner`
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
         duplicatedItem.setAttribute("aria-hidden", true);
         scrollerInner.appendChild(duplicatedItem);
 
-        roundedCorners(duplicatedItem);
+        /*Internal*/roundedCorners(duplicatedItem);/*Internal*/
       });
     });
   });
 
-  imageElements = document.querySelectorAll("img");
+  /*Internal*/imageElements = document.querySelectorAll("img");/*Internal*/
+
+  /*Internal*/updateCodeBlocks(galleryCodeSection)/*Internal*/
+}
+/* END Gallery code */
+
+
+function roundedCorners(image) {
+  if (userRoundedSelect.checked) {
+    image.setAttribute("data-rounded", "true");
+  } else {
+    image.setAttribute("data-rounded", "false");
+  }
 }
 
-function clearExistingGallery() {
-  const gallery = document.getElementById("gallery");
-  gallery.innerHTML = "";
+function reverseAnimationDirection(scroller) {
+  if (userReverseSelect.checked) {
+    scroller.setAttribute("data-direction", "left");
+  } else {
+    scroller.setAttribute("data-direction", "right");
+  }
+}
+
+function changeAnimationSpeed(scroller) {
+  if (userSlowdownSelect.checked) {
+    scroller.setAttribute("data-speed", "slow");
+  } else {
+    scroller.setAttribute("data-speed", "fast");
+  }
+}
+
+function checkUserPreferences(scroller) {
+  reverseAnimationDirection(scroller);
+  changeAnimationSpeed(scroller);
 }
