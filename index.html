@@ -7,64 +7,80 @@
         <link rel="stylesheet" href="output.css">
     </head>
 
-    <body>
-        <div class="w-xs md:w-md mx-auto mb-10">
-            <div id="error-alert" role="alert" class="alert alert-error hidden mb-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6 shrink-0 stroke-current"
-                  fill="none"
-                  viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span id="error-alert-message"></span>
-            </div>
+    <body class="py-10">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold">Infinite Horizontal Gallery</h1>
+            <p class="text-sm md:text-md lg:text-lg mt-2">Create a horizontal gallery with infinite scrolling</p>
+        </div>
 
-            <input 
-                id="user-images-input"
-                type="file" 
-                class="file-input file-input-bordered file-input-primary w-full max-w-xs md:max-w-md mb-4" 
-                multiple
-                accept="image/*"
-            />
-            
-            <div class="mb-4">
-                <input id="user-rows-input" type="range" min="1" max="5" value="3" step="1" class="range range-md lg:range-lg range-primary w-full"/>
-                <div class="flex w-full justify-between px-2 pt-1 text-xs md:text-md">
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                </div>
-            </div>
+        <div id="error-alert" role="alert" class="alert alert-error hidden mb-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 shrink-0 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="error-alert-message"></span>
+        </div>
 
-            <div class="form-control mb-4">
+        <div class="w-xs md:w-md mx-auto">
+            <ul id="create-gallery-input" class="steps steps-vertical mb-8 w-full">
+                <li class="step step-primary mb-6">
+                    <div class="w-full">
+                        <div class="label-text text-sm text-start mb-2">Upload your images</div>
+                        <input 
+                            id="user-images-input"
+                            type="file" 
+                            class="file-input file-input-bordered file-input-primary w-full max-w-xs md:max-w-md" 
+                            multiple
+                            accept="image/*"
+                        />
+                    </div>
+                </li>
+                <li class="step step-primary w-full">
+                    <div class="w-full">
+                        <div class="label-text text-sm text-start mb-1">Number of rows</div>
+                        <input id="user-rows-input" type="range" min="1" max="5" value="3" step="1" class="range range-md lg:range-lg range-primary w-full"/>
+                        <div class="flex w-full justify-between px-2 pt-1 text-xs md:text-md">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <button id="user-submit" class="btn btn-primary w-full mb-5">Create gallery</button>
+        </div>
+
+        <div id="user-preference" class="hidden w-xs md:w-md mx-auto mb-10">
+            <div class="form-control">
                 <label class="label cursor-pointer">
                   <span class="label-text text-sm">Rounded</span>
                   <input id="user-rounded-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
-
-            <div class="form-control mb-4">
+    
+            <div class="form-control">
                 <label class="label cursor-pointer">
                   <span class="label-text text-sm">Reverse direction</span>
                   <input id="user-reverse-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
-
-            <div class="form-control mb-10">
+    
+            <div class="form-control">
                 <label class="label cursor-pointer">
                   <span class="label-text text-sm">Slow down</span>
                   <input id="user-slowdown-select" type="checkbox" class="toggle toggle-primary" />
                 </label>
             </div>
-
-            <button id="user-submit" class="btn btn-primary w-full">Create gallery</button>
         </div>
 
         <div id="gallery"></div>

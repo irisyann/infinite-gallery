@@ -3,6 +3,8 @@ let scrollerInners = null;
 let imageElements = null;
 let numRows = 1;
 let numImages = 0;
+const createGalleryInput = document.getElementById("create-gallery-input");
+const userPreference = document.getElementById("user-preference");
 const userSubmitButton = document.getElementById("user-submit");
 const userImagesInput = document.getElementById("user-images-input");
 const userRowsInput = document.getElementById("user-rows-input");
@@ -19,6 +21,8 @@ userSubmitButton.addEventListener("click", function () {
     setErrorAlert("Please upload at least 1 image.");
     return;
   }  
+
+  toggleFormInputs();
 
   let userImages = [];
   let promises = [];
@@ -97,6 +101,22 @@ function setErrorAlert(message) {
     errorAlert.classList.add("hidden");
     errorAlertMessage.textContent = "";
   }, 3000);
+}
+
+function toggleFormInputs() {
+  if (createGalleryInput.classList.contains("hidden")) {
+    createGalleryInput.classList.remove("hidden");
+    userSubmitButton.textContent = "Create gallery";
+    userPreference.classList.remove("flex");
+    userPreference.classList.remove("justify-between");
+    userPreference.classList.add("hidden");
+  } else {
+    createGalleryInput.classList.add("hidden");
+    userSubmitButton.textContent = "Create another gallery";
+    userPreference.classList.remove("hidden");
+    userPreference.classList.add("flex");
+    userPreference.classList.add("justify-between");
+  }
 }
 
 function createGallery(userImages) {
