@@ -1,10 +1,12 @@
 let scrollers = null;
 let scrollerInners = null;
+let imageElements = null;
 let numRows = 1;
 let numImages = 0;
 const userSubmitButton = document.getElementById("user-submit");
 const userImagesInput = document.getElementById("user-images-input");
 const userRowsInput = document.getElementById("user-rows-input");
+const userRoundedSelect = document.getElementById("user-rounded-select");
 const userReverseSelect = document.getElementById("user-reverse-select");
 const userSlowdownSelect = document.getElementById("user-slowdown-select");
 const errorAlert = document.getElementById("error-alert");
@@ -53,6 +55,16 @@ userSubmitButton.addEventListener("click", function () {
   userRowsInput.value = 3;
 });
 
+userRoundedSelect.addEventListener("change", function () {
+  if (!imageElements) {
+    return;
+  }
+
+  imageElements.forEach((image) => {
+    roundedCorners(image)
+  });
+});
+
 userReverseSelect.addEventListener("change", function () {
   if (!scrollers) {
     return;
@@ -88,6 +100,8 @@ function setErrorAlert(message) {
 }
 
 function createGallery(userImages) {
+  clearExistingGallery();
+  
   const gallery = document.getElementById("gallery");
   for (let i = 0; i < numRows; i++) {
     const scroller = document.createElement("div");
@@ -105,7 +119,7 @@ function createGallery(userImages) {
 
   scrollers = document.querySelectorAll(".scroller");
   scrollerInners = document.querySelectorAll(".scroller__inner");
-  
+
   const dividedImages = divideArrayEqually(userImages, numRows);
 
   // for each scrollerInner, create img elements and append them to the scrollerInner
@@ -121,10 +135,19 @@ function createGallery(userImages) {
       const img = document.createElement("img");
       img.src = image;
       scrollerInner.appendChild(img);
+      roundedCorners(img);
     });
   });
 
   addAnimation();
+}
+
+function roundedCorners(image) {
+  if (userRoundedSelect.checked) {
+    image.setAttribute("data-rounded", "true");
+  } else {
+    image.setAttribute("data-rounded", "false");
+  }
 }
 
 function reverseAnimationDirection(scroller) {
@@ -204,7 +227,16 @@ function addAnimation() {
         const duplicatedItem = item.cloneNode(true);
         duplicatedItem.setAttribute("aria-hidden", true);
         scrollerInner.appendChild(duplicatedItem);
+
+        roundedCorners(duplicatedItem);
       });
     });
   });
+
+  imageElements = document.querySelectorAll("img");
+}
+
+function clearExistingGallery() {
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
 }
