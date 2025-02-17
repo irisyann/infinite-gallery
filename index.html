@@ -8,7 +8,7 @@
         <link rel="icon" href="favicon.png" type="image/x-icon">
     </head>
 
-    <body>
+    <body class="min-h-screen">
         <div class="text-center mt-10 mb-10">
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold">🪩Infinite Gallery</h1>
             <p class="text-sm md:text-md lg:text-lg mt-2">Create a horizontal gallery with infinite scrolling</p>
@@ -37,10 +37,11 @@
                         <input 
                             id="user-images-input"
                             type="file" 
-                            class="file-input file-input-bordered file-input-primary w-full max-w-xs md:max-w-md" 
+                            class="file-input file-input-bordered file-input-primary w-full max-w-xs md:max-w-md mb-1" 
                             multiple
                             accept="image/*"
                         />
+                        <p class="italic text-xs text-start text-gray-400">PS: We don't store your pictures, all processing is done on your device :)</p>
                     </div>
                 </li>
                 <li class="step step-primary w-full">
@@ -134,7 +135,7 @@
             </div>
         </div>
 
-        <footer class="absolute bottom-0 mb-5 text-center mt-15 text-xs md:text-sm">
+        <footer class="mb-5 text-center mt-15 text-xs md:text-sm">
             made by 
             <a href="https://github.com/irisyann" class="underline">irisyann</a>
         </footer>
