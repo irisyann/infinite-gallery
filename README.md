@@ -5,3 +5,5 @@ A customizable, infinite-scroll gallery widget. Easily paste the generated code 
 ## Features
 - Infinite auto-scrolling for your images
 - Adjustable layout settings (rows, speed, direction).
+
+Try it out here: https://irisyann.github.io/infinite-gallery/
