@@ -2681,6 +2681,12 @@
   .text-gray-500 {
     color: var(--color-gray-500);
   }
+  .text-sky-100 {
+    color: var(--color-sky-100);
+  }
+  .text-white {
+    color: var(--color-white);
+  }
   .italic {
     font-style: italic;
   }
