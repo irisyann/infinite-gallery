@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Infinite Horizontal Gallery</title>
-        <link rel="stylesheet" href="output.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
 
-    <body class="py-10">
+    <body class="pt-10">
         <div class="text-center mb-10">
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold">Infinite Horizontal Gallery</h1>
             <p class="text-sm md:text-md lg:text-lg mt-2">Create a horizontal gallery with infinite scrolling</p>
@@ -87,17 +87,15 @@
             <div id="gallery" class="mx-auto"></div>
         </div>
 
-        <div id="gallery-code-section" class="hidden w-full mx-auto mt-10">
+        <div id="gallery-code-section" class="hidden w-full lg:px-10 mx-auto mt-10">
             <div class="text-center mb-5">
-                <h2 class="text-lg md
-                :text-xl lg:text-2xl font-bold">Grab the code below</h2>
+                <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Grab the code below</h2>
 
-                <p class="text-xs md
-                :text-sm lg:text-md">Paste the code to use this gallery in your project!</p>
+                <p class="text-xs md:text-sm lg:text-md">Paste the code to use this gallery in your project!</p>
             </div>
 
-            <div class="gap-5 w-xs lg:w-full mx-auto">
-                <div class="w-full max-w-md lg:max-w-lg mx-auto mb-5">
+            <div class="flex flex-col 2xl:flex-row gap-5 w-xs 2xl:w-full mx-auto">
+                <div class="w-full max-w-md mx-auto mb-5">
                     <label class="label mb-2">
                         <span class="label-text text-sm">HTML</span>
                         <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-html')">Copy</button>
@@ -107,7 +105,7 @@
                     </div>
                 </div>
     
-                <div class="w-full max-w-md lg:max-w-lg mx-auto mb-5">
+                <div class="w-full max-w-md mx-auto mb-5">
                     <label class="label mb-2">
                         <span class="label-text text-sm">CSS</span>
                         <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-css')">Copy</button>
@@ -117,7 +115,7 @@
                     </div>
                 </div>
     
-                <div class="w-full max-w-md lg:max-w-lg mx-auto">
+                <div class="w-full max-w-md mx-auto">
                     <label class="label mb-2">
                         <span class="label-text text-sm">JavaScript</span>
                         <button class="btn btn-xs btn-primary ms-3" onclick="copyToClipboard('gallery-code-js')">Copy</button>
@@ -129,16 +127,31 @@
             </div>
         </div>
 
+        <div id="copied-toast" class="toast toast-end hidden">
+            <div class="alert alert-success">
+              <span>Copied to clipboard!</span>
+            </div>
+        </div>
+
+        <footer class="absolute bottom-0 mb-5 text-center mt-15 text-xs md:text-sm">
+            made by 
+            <a href="https://github.com/irisyann" class="underline">irisyann</a>
+        </footer>
+
         <script>
             function copyToClipboard(elementId) {
                 const element = document.getElementById(elementId);
+                const toast = document.getElementById("copied-toast");
                 const text = element.textContent;
+                toast.classList.remove("hidden");
                 navigator.clipboard.writeText(text).then(() => {
-                    alert("Copied to clipboard!");
+                    setTimeout(() => {
+                        toast.classList.add("hidden");
+                    }, 3000);
                 });
             }
         </script>
 
-        <script src="script.js" type="module"></script>
+        <script src="javascript/script.js" type="module"></script>
     </body>
 </html>

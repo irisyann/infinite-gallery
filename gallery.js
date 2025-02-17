@@ -1,6 +1,10 @@
+import { clearExistingGallery } from "./javascript/util.js";
+
+let scrollerInners = null;
 const gallery = document.getElementById("gallery");
 
-function createGallery(userImages) {
+function createGallery({ userImages, ...elements }) {
+    const { userRowsInput, userRoundedSelect, userReverseSelect, userSlowdownSelect } = elements;
     /*Internal*/clearExistingGallery(gallery);/*Internal*/
     numRows = userRowsInput.value;
 
@@ -131,5 +135,11 @@ function changeAnimationSpeed(scroller) {
         scroller.setAttribute("data-speed", "fast");
     }
 }
+
+function checkUserPreferences(scroller) {
+    reverseAnimationDirection(scroller);
+    changeAnimationSpeed(scroller);
+}
+
 
 export { createGallery, divideArrayEqually, addAnimation, roundedCorners, reverseAnimationDirection, changeAnimationSpeed };

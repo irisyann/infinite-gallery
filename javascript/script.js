@@ -1,5 +1,5 @@
 import { setErrorAlert, resetForm, clearExistingGallery } from "./util.js";
-import { prepareGalleryCode } from "./code-blocks.js";
+import { prepareGalleryCode } from "./codeSnippet.js";
 
 /* START Gallery elements */
 let scrollers = null;
@@ -21,10 +21,6 @@ const userImagesInput = document.getElementById("user-images-input");
 const errorAlert = document.getElementById("error-alert");
 const errorAlertMessage = document.getElementById("error-alert-message");
 const galleryCodeSection = document.getElementById("gallery-code-section");
-
-/*Internal*/const createGalleryFunction = createGallery.toString();/*Internal*/
-/*Internal*/const divideArrayEquallyFunction = divideArrayEqually.toString();/*Internal*/
-/*Internal*/const addAnimationFunction = addAnimation.toString();/*Internal*/
 
 // On submit button click, get user's uploaded images from file input and store them in images array
 userSubmitButton.addEventListener("click", function () {
@@ -122,23 +118,21 @@ function updateCodeBlocks() {
     userRoundedSelect,
     userReverseSelect,
     userSlowdownSelect,
-    createGalleryFunction,
-    divideArrayEquallyFunction,
-    addAnimationFunction,
-    galleryCodeSection
+    galleryCodeSection,
+    numRows
   });
 }
 
 /* START Gallery code */
 function createGallery(userImages) {
-  /*Internal*/clearExistingGallery(gallery);/*Internal*/
+  clearExistingGallery(gallery);
   numRows = userRowsInput.value;
 
   for (let i = 0; i < numRows; i++) {
     const scroller = document.createElement("div");
     scroller.classList.add("scroller");
-    /*Internal*/changeAnimationSpeed(scroller);/*Internal*/
-    /*Internal*/reverseAnimationDirection(scroller);/*Internal*/
+    changeAnimationSpeed(scroller);
+    reverseAnimationDirection(scroller);
 
     const scrollerInner = document.createElement("div");
     scrollerInner.classList.add("scroller__inner");
@@ -165,7 +159,7 @@ function createGallery(userImages) {
       const img = document.createElement("img");
       img.src = image;
       scrollerInner.appendChild(img);
-      /*Internal*/roundedCorners(img);/*Internal*/
+      roundedCorners(img);
     });
   });
 
@@ -219,7 +213,7 @@ function divideArrayEqually(arr, numRows) {
 
 function addAnimation() {
   scrollers.forEach((scroller) => {
-    /*Internal*/checkUserPreferences(scroller);/*Internal*/
+    checkUserPreferences(scroller);
 
     scrollerInners.forEach((scrollerInner) => {
       const scrollerContent = Array.from(scrollerInner.children);
@@ -228,14 +222,14 @@ function addAnimation() {
         duplicatedItem.setAttribute("aria-hidden", true);
         scrollerInner.appendChild(duplicatedItem);
 
-        /*Internal*/roundedCorners(duplicatedItem);/*Internal*/
+        roundedCorners(duplicatedItem);
       });
     });
   });
 
-  /*Internal*/imageElements = document.querySelectorAll("img");/*Internal*/
+  imageElements = document.querySelectorAll("img");
 
-  /*Internal*/updateCodeBlocks(galleryCodeSection)/*Internal*/
+  updateCodeBlocks(galleryCodeSection)
 }
 /* END Gallery code */
 
