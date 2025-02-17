@@ -1,6 +1,6 @@
 # Infinite Gallery
 
-A customizable, infinite-scroll gallery widget. Easily paste the generated code in your project to showcase your images seamlessly.
+A customizable, infinite-scroll gallery. Easily paste the generated code in your project to showcase your images seamlessly.
 
 ## Features
 - Infinite auto-scrolling for your images
