@@ -1,13 +1,4 @@
-const galleryCodeHtml = document.getElementById("gallery-code-html");
-const galleryCodeCss = document.getElementById("gallery-code-css");
-const galleryCodeJs = document.getElementById("gallery-code-js");
-
-function prepareGalleryCode({ ...params }) {
-    const { userRoundedSelect, userReverseSelect, userSlowdownSelect, galleryCodeSection, numRows } = params;
-    const galleryCodeJsText = processGalleryJsCode(numRows);
-  
-    const galleryCodeHtmlText = 
-`  <!-- index.html -->
+const galleryCodeHtml=document.getElementById("gallery-code-html");const galleryCodeCss=document.getElementById("gallery-code-css");const galleryCodeJs=document.getElementById("gallery-code-js");function prepareGalleryCode({...params}){const{userRoundedSelect,userReverseSelect,userSlowdownSelect,galleryCodeSection,numRows}=params;const galleryCodeJsText=processGalleryJsCode(numRows);const galleryCodeHtmlText=`  <!-- index.html -->
 
     <!DOCTYPE html>
     <html lang="en">
@@ -23,9 +14,7 @@ function prepareGalleryCode({ ...params }) {
             <script src="script.js" type="module"></script>
         </body>
     </html>`
-
-    const galleryCodeCssText = 
-`  /* styles.css */
+const galleryCodeCssText=`  /* styles.css */
 
     .scroller {
         max-width: 800px;
@@ -63,18 +52,8 @@ function prepareGalleryCode({ ...params }) {
         to {
             transform: translate(calc(-50% - 0.5rem));
         }
-    }`;
-  
-    galleryCodeJs.textContent = galleryCodeJsText;
-    galleryCodeHtml.textContent = galleryCodeHtmlText;
-    galleryCodeCss.textContent = galleryCodeCssText;
-
-    galleryCodeSection.classList.remove("hidden");
-}
-  
-function processGalleryJsCode(numRows) {
-    const galleryCodeJsText = 
-`  // script.js
+    }`;galleryCodeJs.textContent=galleryCodeJsText;galleryCodeHtml.textContent=galleryCodeHtmlText;galleryCodeCss.textContent=galleryCodeCssText;galleryCodeSection.classList.remove("hidden")}
+function processGalleryJsCode(numRows){const galleryCodeJsText=`  // script.js
 
     const images = [ /* Add your image paths here */ ];
 
@@ -177,7 +156,5 @@ function processGalleryJsCode(numRows) {
         });
     }
 `
-    return galleryCodeJsText;
-}
-
-export { prepareGalleryCode };
+return galleryCodeJsText}
+export{prepareGalleryCode}
